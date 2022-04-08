@@ -13,16 +13,27 @@ De readme.md vind je in de hoofdmap van deze repo.
 #define BIN2   A3          //Motor-R backward (IN4)
 
 #define Clock     13
+
 #define Address   12
+
 #define DataOut   11
+
 #define CS        10
+
 #define TRSensors_h
+
 #define QTR_EMITTERS_OFF 0
+
 #define QTR_EMITTERS_ON 1
+
 #define QTR_EMITTERS_ON_AND_OFF 2
+
 #define QTR_NO_EMITTER_PIN	255
+
 #define QTR_MAX_SENSORS 16
+
 #define ECHO   2
+
 #define TRIG   3
 
 #define Addr  0x20
