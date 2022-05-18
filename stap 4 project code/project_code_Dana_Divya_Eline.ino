@@ -20,37 +20,37 @@
 #define const int TRIG = 3;
 #define const int Addr = 0x20;
 int RIJDEN = 0;
-int REMMEN = 0;
-int  DRAAIEN = 0;
+int REMMEN = 1;
+int  DRAAIEN = 2;
 int TOESTAND = RIJDEN;
   
 void setup() {
   // put your setup code here, to run once:
-  pinMode(PWMA,OUTPUT);                     
-  pinMode(AIN2,OUTPUT);      
-  pinMode(AIN1,OUTPUT);
-  pinMode(PWMB,OUTPUT);       
-  pinMode(AIN1,OUTPUT);     
-  pinMode(AIN2,OUTPUT);  
+   
   
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 if (TOESTAND == RIJDEN) {
-  analogWrite(PWMA,50);
-  digitalWrite(AIN1, LOW);
-  digitalWrite(AIN2,HIGH);
-  analogWrite(PWMB,50);
-  digitalWrite(BIN1, LOW);
-  digitalWrite(BIN2,HIGH);
+  /* zorgen dat hij rechtdoor rijdt */
+    if (muurGedetecteerd = true) {
+    TOESTAND == REMMEN;
+    }
 }
 
- if(TOESTAND == REMMEN) {
-      
-    }
+if(TOESTAND == REMMEN) {
+  /* speed verlagen */
+    if (speed = 0) {
+    TOESTAND == DRAAIEN;
+  }
+}
 
-    if(TOESTAND == DRAAIEN) {
-      
+if(TOESTAND == DRAAIEN) {
+  /* draaien naar links of rechts */
+    if (muurGedetecteerd = false) {
+    TOESTAND == RIJDEN;
     }
+  }
+  
 }
