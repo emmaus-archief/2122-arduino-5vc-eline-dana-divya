@@ -1,3 +1,4 @@
+
 const int PWMA = 6;           //Left Motor Speed pin (ENA)
 const int AIN2 = A0;         //Motor-L forward (IN2).
 const int AIN1 = A1;          //Motor-L backward (IN1)
@@ -21,6 +22,7 @@ int RIJDEN = 0;
 int REMMEN = 1;
 int  DRAAIEN = 2;
 int TOESTAND = RIJDEN;
+int speed = 20;
   
 void setup() {
   // put your setup code here, to run once:
