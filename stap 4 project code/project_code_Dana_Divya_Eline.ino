@@ -32,6 +32,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+bool muurGedetecteerd = false;
 if (TOESTAND == RIJDEN) {
   /* zorgen dat hij rechtdoor rijdt */
     if (muurGedetecteerd = true) {
