@@ -1,24 +1,22 @@
-
-
-#define PWMA   6           //Left Motor Speed pin (ENA)
-#define AIN2   A0          //Motor-L forward (IN2).
-#define AIN1   A1          //Motor-L backward (IN1)
-#define PWMB   5           //Right Motor Speed pin (ENB)
-#define BIN1   A2          //Motor-R forward (IN3)
-#define BIN2   A3          //Motor-R backward (IN4)
-#define const int Clock = 13;
-#define const int Address = 12;
-#define const int DataOut = 11;
-#define const int CS = 10;
-#define const int TRSensors_h = ;
-#define const int QTR_EMITTERS_OFF = 0;
-#define const int QTR_EMITTERS_ON = 1;
-#define const int QTR_EMITTERS_ON_AND_OFF = 2;
-#define const int QTR_NO_EMITTER_PIN = 255;
-#define const int QTR_MAX_SENSORS = 16;
-#define const int ECHO = 2;
-#define const int TRIG = 3;
-#define const int Addr = 0x20;
+const int PWMA = 6;           //Left Motor Speed pin (ENA)
+const int AIN2 = A0;         //Motor-L forward (IN2).
+const int AIN1 = A1;          //Motor-L backward (IN1)
+const int PWMB = 5;           //Right Motor Speed pin (ENB)
+const int BIN1 = A2;          //Motor-R forward (IN3)
+const int BIN2 = A3;          //Motor-R backward (IN4)
+const int Clock = 13;
+const int Address = 12;
+const int DataOut = 11;
+const int CS = 10;
+const int TRSensors_h = ;
+const int QTR_EMITTERS_OFF = 0;
+const int QTR_EMITTERS_ON = 1;
+const int QTR_EMITTERS_ON_AND_OFF = 2;
+const int QTR_NO_EMITTER_PIN = 255;
+const int QTR_MAX_SENSORS = 16;
+const int ECHO = 2;
+const int TRIG = 3;
+const int Addr = 0x20;
 int RIJDEN = 0;
 int REMMEN = 1;
 int  DRAAIEN = 2;
