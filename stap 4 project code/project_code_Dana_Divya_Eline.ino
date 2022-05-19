@@ -21,9 +21,10 @@ const int Addr = 0x20;
 int RIJDEN = 0;
 int REMMEN = 1;
 int DRAAIEN = 2;
-int TOESTAND = DRAAIEN;
+int TOESTAND = RIJDEN;
 int snelheid = 75;
 
+byte value;
 void PCF8574Write(byte data);
 byte PCF8574Read();
 
@@ -43,7 +44,7 @@ void setup() {
 }
 
 void loop() {
-  bool muurGedetecteerd = false;
+  /* bool muurGedetecteerd = false; */
   if (TOESTAND == RIJDEN) {
     Serial.println("RIJDEN");
     snelheid = 75;
@@ -53,24 +54,45 @@ void loop() {
     digitalWrite(AIN2, HIGH);
     digitalWrite(BIN1, LOW);
     digitalWrite(BIN2, HIGH);
-    if (muurGedetecteerd = true) {
-      TOESTAND == REMMEN;
+    PCF8574Write(0xC0 | PCF8574Read());   //set Pin High
+    value = PCF8574Read() | 0x3F;         //read Pin
+    if (value != 0xFF)
+    {
+      TOESTAND = REMMEN;
     }
+    else
+    {
+      TOESTAND = RIJDEN;
+    }
+
+    /* if (muurGedetecteerd = true) {
+      TOESTAND == REMMEN;
+      } */
   }
 
   if (TOESTAND == REMMEN) {
     Serial.println("REMMEN");
     stilstaan();
-    if (snelheid = 0) {
-      TOESTAND == DRAAIEN;
-    }
+    TOESTAND = DRAAIEN;
   }
 
   if (TOESTAND == DRAAIEN) {
+    Serial.println("DRAAIEN");
     draaien();
-    if (muurGedetecteerd == false) {
-      TOESTAND == RIJDEN;
+    PCF8574Write(0xC0 | PCF8574Read());   //set Pin High
+    value = PCF8574Read() | 0x3F;         //read Pin
+    if (value != 0xFF)
+    {
+      TOESTAND = DRAAIEN;
     }
+    else
+    {
+      TOESTAND = RIJDEN;
+    }
+
+    /* if (muurGedetecteerd == false) {
+      TOESTAND == RIJDEN;
+      } */
   }
 }
 
@@ -99,19 +121,21 @@ void PCF8574Write(byte data)
 {
   Wire.beginTransmission(Addr);
   Wire.write(data);
-  Wire.endTransmission(); 
+  Wire.endTransmission();
 }
 
 byte PCF8574Read()
 {
   int data = -1;
   Wire.requestFrom(Addr, 1);
-  if(Wire.available()) {
+  if (Wire.available()) {
     data = Wire.read();
   }
   return data;
 }
 
-void muurGedetecteerd() {
+/*
+  void muurGedetecteerd() {
 
-}
+  }
+*/
