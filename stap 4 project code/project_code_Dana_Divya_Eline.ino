@@ -23,13 +23,14 @@ int REMMEN = 1;
 int DRAAIEN = 2;
 int TOESTAND = RIJDEN;
 int snelheid = 75;
+int getal = 1;
 
 byte value;
 void PCF8574Write(byte data);
 byte PCF8574Read();
 
 void setup() {
-  // put your setup code here, to run once:
+  // stelt in welke pinnen out en inputs zijn
   Serial.begin(115200);
   Wire.begin();
   snelheid = 75;
@@ -54,8 +55,8 @@ void loop() {
     digitalWrite(AIN2, HIGH);
     digitalWrite(BIN1, LOW);
     digitalWrite(BIN2, HIGH);
-    PCF8574Write(0xC0 | PCF8574Read());   //set Pin High
-    value = PCF8574Read() | 0x3F;         //read Pin
+    PCF8574Write(0xC0 | PCF8574Read());   //zet de Pin
+    value = PCF8574Read() | 0x3F;         //leest de Pin
     if (value != 0xFF)
     {
       TOESTAND = REMMEN;
@@ -65,9 +66,6 @@ void loop() {
       TOESTAND = RIJDEN;
     }
 
-    /* if (muurGedetecteerd = true) {
-      TOESTAND == REMMEN;
-      } */
   }
 
   if (TOESTAND == REMMEN) {
@@ -78,9 +76,10 @@ void loop() {
 
   if (TOESTAND == DRAAIEN) {
     Serial.println("DRAAIEN");
+    getal = random(1, 2);                 // Dit zou een random getal geven, 1 of 2 zodat hij random kant op kan draaien. Dit proberen we dan met een if-statement in draaien(), maar het werkt niet.
     draaien();
-    PCF8574Write(0xC0 | PCF8574Read());   //set Pin High
-    value = PCF8574Read() | 0x3F;         //read Pin
+    PCF8574Write(0xC0 | PCF8574Read());   //zet de Pin
+    value = PCF8574Read() | 0x3F;         //leest de Pin
     if (value != 0xFF)
     {
       TOESTAND = DRAAIEN;
@@ -90,9 +89,7 @@ void loop() {
       TOESTAND = RIJDEN;
     }
 
-    /* if (muurGedetecteerd == false) {
-      TOESTAND == RIJDEN;
-      } */
+
   }
 }
 
@@ -108,14 +105,25 @@ void stilstaan() {
 
 void draaien() {
   snelheid = 50;
-  analogWrite(PWMA, snelheid);
-  analogWrite(PWMB, snelheid);
-  digitalWrite(AIN1, HIGH);
-  digitalWrite(BIN2, HIGH);
-  digitalWrite(AIN2, LOW);
-  digitalWrite(BIN1, LOW);
-}
 
+  if (getal == 1) {                       // in de loop wordt een random getal gekozen, 1 of 2. Hierdor zou hij steeds een andere kant op draaien ipv alleen naar links. Dit werkt helaas niet.
+    analogWrite(PWMA, snelheid);
+    analogWrite(PWMB, snelheid);
+    digitalWrite(AIN1, HIGH);
+    digitalWrite(BIN2, HIGH);
+    digitalWrite(AIN2, LOW);
+    digitalWrite(BIN1, LOW);
+  }
+
+  if (getal == 2) {
+    analogWrite(PWMA, snelheid);
+    analogWrite(PWMB, snelheid);
+    digitalWrite(AIN1, LOW);
+    digitalWrite(BIN2, LOW);
+    digitalWrite(AIN2, HIGH);
+    digitalWrite(BIN1, HIGH);
+  }
+}
 
 void PCF8574Write(byte data)
 {
@@ -134,8 +142,5 @@ byte PCF8574Read()
   return data;
 }
 
-/*
-  void muurGedetecteerd() {
 
-  }
-*/
+
