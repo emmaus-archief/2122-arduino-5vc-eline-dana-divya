@@ -1,5 +1,3 @@
-De readme.md vind je in de hoofdmap van deze repo.
-
 Hallo meneer,
 
 Dit is onze prachtige video van Henk de Alphabot.
