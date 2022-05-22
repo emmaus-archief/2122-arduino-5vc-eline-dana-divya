@@ -21,8 +21,8 @@ const int Addr = 0x20;
 int RIJDEN = 0;
 int REMMEN = 1;
 int DRAAIEN = 2;
-int TOESTAND = RIJDEN;
-int snelheid = 75;
+int TOESTAND = RIJDEN;    // zorgt dat hij begint in toestand rijden
+int snelheid = 75;        // basis snelheid voor de alpha bot
 int getal = 1;
 
 byte value;
@@ -45,7 +45,6 @@ void setup() {
 }
 
 void loop() {
-  /* bool muurGedetecteerd = false; */
   if (TOESTAND == RIJDEN) {
     Serial.println("RIJDEN");
     snelheid = 75;
@@ -57,7 +56,7 @@ void loop() {
     digitalWrite(BIN2, HIGH);
     PCF8574Write(0xC0 | PCF8574Read());   //zet de Pin
     value = PCF8574Read() | 0x3F;         //leest de Pin
-    if (value != 0xFF)
+    if (value != 0xFF)                    // als hij een muur detecteerd gaat hij dus remmen, zo niet blijft hij doorrijden
     {
       TOESTAND = REMMEN;
     }
@@ -80,7 +79,7 @@ void loop() {
     draaien();
     PCF8574Write(0xC0 | PCF8574Read());   //zet de Pin
     value = PCF8574Read() | 0x3F;         //leest de Pin
-    if (value != 0xFF)
+    if (value != 0xFF)                    // als hij geen muur meer ziet gaat hij dus weer rijden, maar als de muur er nog is blijft hij draaien
     {
       TOESTAND = DRAAIEN;
     }
@@ -88,8 +87,6 @@ void loop() {
     {
       TOESTAND = RIJDEN;
     }
-
-
   }
 }
 
@@ -124,6 +121,8 @@ void draaien() {
     digitalWrite(BIN1, HIGH);
   }
 }
+
+// deze twee zorgen voor het werken van de afstand sensor
 
 void PCF8574Write(byte data)
 {
